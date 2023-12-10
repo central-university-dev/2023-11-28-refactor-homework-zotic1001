@@ -76,18 +76,18 @@ def rename_variable(source_code: str, old_name: str, target_name: str) -> str:
 
 
 def rename_class_or_function(directory: str, source_name, dest_name):
-    files_and_path_result = []
+    files_and_path_result = dict()
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.py'):
                 file_path = os.path.join(root, file)
-                files_and_path_result.append(
-                    (Path(file_path), rename_variable(Path(file_path).read_text(), source_name, dest_name)))
+                files_and_path_result[Path(file_path)] = rename_variable(Path(file_path).read_text(), source_name,
+                                                                         dest_name)
     return files_and_path_result
 
 
 def move_class_or_function(directory: str, source_file: str, new_source_file: str, source: str):
-    files_and_path_result = []
+    files_and_path_result = {}
     for root, dirs, files in os.walk(directory):
         for file in files:
             if file.endswith('.py'):
@@ -95,5 +95,5 @@ def move_class_or_function(directory: str, source_file: str, new_source_file: st
                 file_path = os.path.join(root, file)
                 original_tree = libcst.parse_module(Path(file_path).read_text())
                 renamed_tree = original_tree.visit(tr)
-                files_and_path_result.append((Path(file_path), renamed_tree.code))
+                files_and_path_result[Path(file_path)] = renamed_tree.code
     return files_and_path_result
