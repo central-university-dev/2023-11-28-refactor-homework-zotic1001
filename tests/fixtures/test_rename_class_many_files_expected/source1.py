@@ -1,0 +1,3 @@
+from dir.source4 import SRClass
+class FFClass:
+    ...

@@ -1,0 +1,1 @@
+from dir.source2 import FClass

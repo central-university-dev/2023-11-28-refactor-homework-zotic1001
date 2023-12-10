@@ -1,0 +1,4 @@
+
+
+class SomeClass(Base, B):
+    ...
