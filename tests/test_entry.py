@@ -5,13 +5,7 @@ from renamer.entry import rename_class_or_function, move_class_or_function
 
 def replace_last_folder(path, new_folder_name):
     path = Path(path)
-    path_components = list(path.parts)
-    for i in range(len(path_components) - 1, -1, -1):
-        if '.' not in path_components[i]:
-            path_components[i] = new_folder_name
-            break
-    new_path = Path(*path_components)
-    return new_path
+    return path.parent.parent / new_folder_name / path.name
 
 
 def test_func_rename():
